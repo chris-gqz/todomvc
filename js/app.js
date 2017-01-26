@@ -28,6 +28,9 @@ $scope.todos=[
 ]; 
 	//添加todo
 	$scope.add=function(){
+		if (!$scope.text) {
+			return ;
+		}
 		$scope.todos.push({
 //			id:$scope.todos.length+1,//自动增长
 //          id:Math.random();//用随机数防止重复
@@ -79,11 +82,30 @@ $scope.todos=[
 	}
 	return id;
 }
+//	$scope.checkall=false;
+//	$scope.$watch('checkall',function(now,old){
+//		for (var i=0;i<$scope.todos.length;i++) {
+//			$scope.todos[i].completed=now;
+//		}
+//	})
+   //一起清除
+   var now = true;
+   $scope.toggleAll=function(){
+   	for (var i=0;i<$scope.todos.length;i++) {
+   		$scope.todos[i].completed=now;
+   	}
+   	now=!now;
+   }
+
+	
 	//当前编辑哪个元素
 	$scope.currentEditingId= -1;
 	$scope.editing = function(id){
-		
+		$scope.currentEditingId =id;
 	}
+	$scope.save = function(){
+		$scope.currentEditingId =-1;
+	}	
 	
 	
 }])
